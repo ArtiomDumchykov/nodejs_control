@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": false,
+//    "noUnusedParameters": true,
+    "skipLibCheck": true,
+
+
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+
+  }
+}

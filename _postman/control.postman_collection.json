@@ -1,0 +1,635 @@
+{
+	"info": {
+		"_postman_id": "a6339458-d92d-43e2-a2f5-bdc17ca8e3f3",
+		"name": "control",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17759545"
+	},
+	"item": [
+		{
+			"name": "cars",
+			"item": [
+				{
+					"name": "cars",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/cars?page=1&limit=10&sortedBy=price",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "sortedBy",
+									"value": "price"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "car",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/cars/6553dd521b1a9ef1fb657bf0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars",
+								"6553dd521b1a9ef1fb657bf0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"model\": \"x6\",\r\n    \"year\": 2016,\r\n    \"manufacture\":\"BMV\",\r\n    \"price\": 7777,\r\n    \"currency\":\"USD\",\r\n    \"city\":\"Kharkiv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cars",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "photo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/cars/photo/6553dd521b1a9ef1fb657bf0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars",
+								"photo",
+								"6553dd521b1a9ef1fb657bf0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"price\": 7779\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cars/6553dd521b1a9ef1fb657bf0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars",
+								"6553dd521b1a9ef1fb657bf0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/cars/6553dd521b1a9ef1fb657bf0",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"cars",
+								"6553dd521b1a9ef1fb657bf0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Artem\",\r\n    \"email\": \"artem@gmail.com\",\r\n    \"password\": \"P@$$word1\",\r\n    \"phone\": \"0981231212\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = JSON.parse(responseBody)\r",
+									"\r",
+									"pm.environment.set(\"accessToken\", body.data.accessToken)\r",
+									"pm.environment.set(\"refreshToken\", body.data.refreshToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test12345@example.com\",\r\n    \"password\": \"P@$$word1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/auth/login",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Artem\",\r\n    \"email\": \"test12345@example.com\",\r\n    \"password\": \"P@$$word1\",\r\n    \"phone\": \"0981231212\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/admin/register",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"admin",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateStatusUser",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\"manager\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/admin/6553ddfb1b1a9ef1fb657c08",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"admin",
+								"6553ddfb1b1a9ef1fb657c08"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"artem\",\r\n    \"email\": \"artemtest@gmail.com\",\r\n    \"password\":\"P@$$word1\",\r\n    \"phone\": \"0501231213\",\r\n    \"premium\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/users",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/users?page=1&limit=20",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/users/info/6553ddfb1b1a9ef1fb657c08",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users",
+								"info",
+								"6553ddfb1b1a9ef1fb657c08"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"artem\",\r\n    \"email\": \"artemtest@gmail.com\",\r\n    \"phone\": \"0981231214\",\r\n    \"premium\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/users/6553ddfb1b1a9ef1fb657c08",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users",
+								"6553ddfb1b1a9ef1fb657c08"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "avatar",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{localhost}}/users/avatar",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteUserId",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/users/6553ddfb1b1a9ef1fb657c08",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users",
+								"6553ddfb1b1a9ef1fb657c08"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "premium",
+			"item": [
+				{
+					"name": "view",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localhost}}/premium/view/6553dd521b1a9ef1fb657bf0/2",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"premium",
+								"view",
+								"6553dd521b1a9ef1fb657bf0",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "average",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localhost}}/premium/average/bmv/all",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"premium",
+								"average",
+								"bmv",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "premium",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{accessToken}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{localhost}}/users/premium",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"users",
+								"premium"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
